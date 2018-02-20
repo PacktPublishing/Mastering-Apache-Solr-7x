@@ -1,0 +1,13 @@
+<dataConfig>
+    <dataSource driver="com.mysql.jdbc.Driver" 
+		url="jdbc:mysql://localhost:3306/chintan" user="root" password="root" />
+    <document>
+        <entity name="archives" query="select * from archives"
+                    deltaImportQuery="SELECT * from archives WHERE category_id='${dih.delta.id}'">
+            <field column="category_id" name="category_id" />
+			<field column="category_name" name="category_name" />
+			<field column="remarks" name="remarks" />
+        </entity>
+    </document>
+</dataConfig>
+

@@ -1,0 +1,2 @@
+Chapter 1 is theoretical chapter.
+Chapter 4, 5, 6, 7, and 8 do not have separate code files. Most of the code is command-line. Some of the files comes in-built with the setup, we need to change the content of the files and run them.

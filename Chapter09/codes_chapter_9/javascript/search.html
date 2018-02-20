@@ -1,0 +1,61 @@
+<html>
+<head>
+<title>Solr Javascript API Example</title>
+<script language="Javascript">
+//main function called when clicking on search button
+function search() {
+  //Solr search url
+  var hostURL='http://localhost:8983/solr/techproducts/select';
+    var xmlHttpReq = false;
+    var xmlHttpClient = this;
+   
+  // Mozilla/Safari
+    if (window.XMLHttpRequest) {
+        xmlHttpClient.xmlHttpReq = new XMLHttpRequest();
+    }
+  // IE
+    else if (window.ActiveXObject) { 
+        xmlHttpClient.xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    
+  xmlHttpClient.xmlHttpReq.open('POST', hostURL, true);
+    xmlHttpClient.xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xmlHttpClient.xmlHttpReq.onreadystatechange = function() {
+        if (xmlHttpClient.xmlHttpReq.readyState == 4) {
+            showResponse(xmlHttpClient.xmlHttpReq.responseText);
+        }
+    }
+
+    var queryString = appendParams();
+    xmlHttpClient.xmlHttpReq.send(queryString);
+}
+
+// get entered text in query parameter
+function appendParams() {
+  var querystring = document.getElementById("querystring").value;
+  qstr = 'q=' + escape(querystring)+"&fl=id,name";
+  return qstr;
+}
+
+//paring and displaying the response
+function showResponse(str){
+  document.getElementById("responsestring").innerHTML = str;
+  var rsp = eval("("+str+")");
+  var html = '<strong>Response</strong>';
+  html= "</br><strong>Total Found: "+ rsp.response.numFound+"</strong>";
+  document.getElementById("result").innerHTML = html;
+}
+</script>
+</head>
+
+<body>
+  <div align='center'>
+    <p>
+      <input id="querystring" name="querystring" type="text" placeholder='Search Here'>
+      <input value="Search" type="button" onClick='search();'>
+    </p>
+    <div id="result"></div>
+    <div id="responsestring"></div>
+  </div>
+</body>
+</html>
